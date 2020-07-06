@@ -25,6 +25,11 @@ class Quiz
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
      * @ORM\OneToMany(targetEntity=Question::class, mappedBy="quiz", orphanRemoval=true)
      */
     private $questions;
@@ -63,6 +68,25 @@ class Quiz
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string|null $description
+     * @return $this
+     */
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

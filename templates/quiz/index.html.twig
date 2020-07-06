@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Welcome to quizzes!</h1>
+            <p class="lead text-muted">
+                A simple quiz site where you create, share and test yourself on a wide range of different user created
+                quizzes!
+            </p>
+            <p>
+                <a href="#" class="btn btn-primary my-2">Create my own quiz</a>
+                <a href="#" class="btn btn-secondary my-2">Answer a random quiz</a>
+            </p>
+        </div>
+    </section>
+
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                {% for quiz in quizzes %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ quiz.name }}</h5>
+                                <p class="card-text">{{ quiz.description }}</p>
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Play quiz!</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
