@@ -25,6 +25,11 @@ class Question
     private $name;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $order;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Quiz::class, inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -63,6 +68,25 @@ class Question
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getOrder(): int
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param int $order
+     * @return $this
+     */
+    public function setOrder(int $order): self
+    {
+        $this->order = $order;
 
         return $this;
     }

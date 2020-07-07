@@ -25,7 +25,11 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ quiz.name }}</h5>
                                 <p class="card-text">{{ quiz.description }}</p>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Play quiz!</button>
+                                <a
+                                    href="{{ path('quizzes_show', {quiz: quiz.id}) }}"
+                                    role="button"
+                                    class="btn btn-sm btn-outline-secondary"
+                                >Play quiz!</a>
                             </div>
                         </div>
                     </div>

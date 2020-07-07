@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Question;
+use App\Entity\Quiz;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,41 @@ class QuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, Question::class);
     }
 
-    // /**
-    //  * @return Question[] Returns an array of Question objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param Quiz $quiz
+     * @return Question
+     */
+    public function getFirstQuestion(Quiz $quiz): Question
     {
         return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('q.quiz = :quiz')
+            ->setParameter('quiz', $quiz->getId())
+            ->orderBy('q.order')
+            ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult()[0];
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Question
+    /**
+     * @param Quiz $quiz
+     * @param int  $order
+     * @return int|null
+     */
+    public function getIDByOrder(Quiz $quiz, int $order): ?int
     {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
+        $questions = $this->createQueryBuilder('q')
+            ->select('q.id')
+            ->where('q.quiz = :quiz')
+            ->andWhere('q.order = :order')
+            ->setParameter('quiz', $quiz->getId())
+            ->setParameter('order', $order)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
+
+        if (count($questions) < 1) {
+            return null;
+        }
+
+        return $questions[0]['id'];
     }
-    */
 }

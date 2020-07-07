@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">{{ quiz.name }}</h1>
+            <p class="lead text-muted">
+                {{ quiz.description }}
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-8">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ question.name }}</h4>
+                        <div class="row">
+                            {% for answer in question.answers %}
+                                <div class="col-md-4 p-2 d-flex justify-content-center align-items-center ">
+                                    <button class="btn btn-primary btn-block p-5">
+                                        {{ answer.name }}
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if not isLastQuestion %}
+                <div class="mt-5">
+                    <a
+                        href="{{ path("question_show", {quiz: quiz.id, question: nextQuestionId}) }}"
+                        class="btn btn-secondary float-right"
+                    >
+                        Skip this question - it's too hard!
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

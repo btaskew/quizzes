@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Quiz;
+use App\Repository\QuestionRepository;
 use App\Repository\QuizRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +20,20 @@ class QuizController extends AbstractController
     {
         return $this->render('quiz/index.html.twig', [
             'quizzes' => $quizRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/quizzes/{quiz}", name="quizzes_show")
+     * @param Quiz               $quiz
+     * @param QuestionRepository $questionRepository
+     * @return Response
+     */
+    public function show(Quiz $quiz, QuestionRepository $questionRepository)
+    {
+        return $this->render('quiz/show.html.twig', [
+            'quiz' => $quiz,
+            'firstQuestion' => $questionRepository->getFirstQuestion($quiz)
         ]);
     }
 }

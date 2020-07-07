@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">{{ quiz.name }}</h1>
+            <p class="lead text-muted">
+                {{ quiz.description }}
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container d-flex justify-content-center">
+            <a
+                href="{{ path("question_show", {quiz: quiz.id, question: firstQuestion.id}) }}"
+                class="btn btn-primary btn-lg"
+            >
+                Get started!
+            </a>
+        </div>
+    </section>
+{% endblock %}
