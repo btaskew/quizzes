@@ -19,9 +19,12 @@
                         <div class="row">
                             {% for answer in question.answers %}
                                 <div class="col-md-4 p-2 d-flex justify-content-center align-items-center ">
-                                    <button class="btn btn-primary btn-block p-5">
+                                    <a
+                                        href="{{ path("record_answer", {quiz: quiz.id, question: question.id, answer: answer.id}) }}"
+                                        class="btn btn-primary btn-block p-5"
+                                    >
                                         {{ answer.name }}
-                                    </button>
+                                    </a>
                                 </div>
                             {% endfor %}
                         </div>

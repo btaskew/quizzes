@@ -69,7 +69,7 @@ class Answer
     /**
      * @return bool|null
      */
-    public function getIsCorrect(): ?bool
+    public function isCorrect(): ?bool
     {
         return $this->is_correct;
     }

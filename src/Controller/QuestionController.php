@@ -21,13 +21,12 @@ class QuestionController extends AbstractController
     public function show(Question $question, Quiz $quiz, QuestionRepository $questionRepository)
     {
         $nextQuestionId = $questionRepository->getIDByOrder($quiz, $question->getOrder() + 1);
-        $isLastQuestion = is_null($nextQuestionId);
 
         return $this->render('question/show.html.twig', [
             'question' => $question,
             'quiz' => $quiz,
             'nextQuestionId' => $nextQuestionId,
-            'isLastQuestion' => $isLastQuestion,
+            'isLastQuestion' => is_null($nextQuestionId),
         ]);
     }
 }

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">{{ quiz.name }}</h1>
+            <p class="lead text-muted">
+                {{ quiz.description }}
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div>
+                <h3>Score: {{ correct_count }} / {{ total_count }}</h3>
+                <h5>{{ (correct_count / total_count) * 100 }}%</h5>
+            </div>
+
+            <div class="mt-5">
+                <h3>Your results:</h3>
+
+                <table class="table mt-5">
+                    <thead>
+                    <tr>
+                        <th scope="col">Question</th>
+                        <th scope="col">Given answer</th>
+                        <th scope="col">Correct?</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for answer in answers %}
+                        <tr>
+                            <td>{{ answer.question.name }}</td>
+                            <td>{{ answer.name }}</td>
+                            <td>
+                                {% if answer.isCorrect() %}
+                                    Yes &#128515;
+                                {% else %}
+                                    No &#128546;
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-4">
+                <a href="{{ path('quizzes_show', {quiz: quiz.id}) }}">Try again?</a>
+                <br />
+                <a href="{{ path('quizzes') }}">More quizzes!</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

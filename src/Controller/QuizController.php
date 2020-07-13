@@ -7,6 +7,7 @@ use App\Repository\QuestionRepository;
 use App\Repository\QuizRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class QuizController extends AbstractController
@@ -29,11 +30,22 @@ class QuizController extends AbstractController
      * @param QuestionRepository $questionRepository
      * @return Response
      */
-    public function show(Quiz $quiz, QuestionRepository $questionRepository)
+    public function show(Quiz $quiz, QuestionRepository $questionRepository, SessionInterface $session)
     {
+        $this->resetAnswers($session, $quiz);
+
         return $this->render('quiz/show.html.twig', [
             'quiz' => $quiz,
             'firstQuestion' => $questionRepository->getFirstQuestion($quiz)
         ]);
+    }
+
+    /**
+     * @param SessionInterface $session
+     * @param Quiz             $quiz
+     */
+    private function resetAnswers(SessionInterface $session, Quiz $quiz): void
+    {
+        $session->set($quiz->getId(), []);
     }
 }
